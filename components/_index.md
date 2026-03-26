@@ -81,6 +81,7 @@ The **Sauce UX Standards** define the rules. These component files show how to b
 ### Composite Patterns
 | Component | File | Summary |
 |---|---|---|
+| Bulk Action Bar | `bulk-action-bar.md` | Contextual toolbar for multi-select actions on tables and lists |
 | Command Palette | `command-palette.md` | Keyboard-driven search and action launcher |
 | Dropdown Menu | `dropdown-menu.md` | Action list triggered from a button |
 | Context Menu | `context-menu.md` | Right-click or long-press action list |
