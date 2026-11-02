@@ -132,3 +132,13 @@ Internal:
 - Body: `px-4 py-2`
 - Footer: `px-4 pt-2 pb-4 flex items-center justify-between`
 - Media: `w-full h-48 object-cover` (or aspect ratio utilities)
+
+---
+
+## Direction border colour
+
+> Added from the yard-demo Create booking flow (issue #99).
+
+- A bordered Card that stands for one booking direction uses the direction colours: `borderColor="cyan"` for inbound, `borderColor="purple"` for outbound. Same rule as the direction dot in the bookings tables (table.md, "Row dot = direction")
+- The direction is also in words, in the title ("Inbound purchase orders", "Outbound purchase order") and the accessible name, so colour is not the only signal (WCAG 1.4.1)
+- Example: the purchase order summary card on Create booking. Other bordered cards keep their own colour meaning (yellow for the pending booking, orange for discard)

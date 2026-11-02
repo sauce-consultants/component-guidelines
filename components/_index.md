@@ -41,6 +41,7 @@ The **Sauce UX Standards** define the rules. These component files show how to b
 | Toggle / Switch | `toggle.md` | Immediate on/off control for settings |
 | Slider | `slider.md` | Continuous or stepped value selection within a range |
 | Date Picker | `date-picker.md` | Calendar-based date and date-range selection |
+| Slot Grid | `slot-grid.md` | Single-choice time slot picker in period columns, with optional site traffic |
 | File Upload | `file-upload.md` | File selection via click or drag-and-drop |
 
 ### Layout & Navigation
@@ -72,6 +73,7 @@ The **Sauce UX Standards** define the rules. These component files show how to b
 |---|---|---|
 | Modal / Dialog | `modal.md` | Focused overlay requiring user attention or input |
 | Slide Panel / Drawer | `slide-panel.md` | Side-anchored overlay for detail views or forms |
+| Inline Panel | `inline-panel.md` | In-flow settings or filter panel that pushes content down (not an overlay) |
 | Toast / Notification | `toast.md` | Brief, auto-dismissing feedback message |
 | Alert / Banner | `alert.md` | Persistent inline message for warnings, errors, or info |
 | Progress Bar | `progress-bar.md` | Determinate or indeterminate progress indicator |

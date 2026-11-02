@@ -17,6 +17,18 @@
 
 ---
 
+## Multiple selection (chips)
+
+> yard-demo `Select multiple`. Used for cargo flags above eight options on Create booking (#99).
+
+- **Chips:** each chosen value shows as a chip in the field. The chips sit beside the trigger button, not inside it, so a chip can hold its own control
+- **Remove control:** a real `<button>` inside each chip, named "Remove [value]" (for example "Remove Fragile"), at least 24px square, with a visible focus ring. It is reached by Tab after the trigger, Enter or Space removes the chip, and focus returns to the trigger. Clicking it never opens the list
+- **Backspace:** with focus on the trigger, Backspace removes the last chip, as in a tag input
+- **Trigger name:** the trigger keeps a text name (the label plus "N selected") for screen readers, and clicking the chip row opens the list
+- **Do not** nest a button, or an element with `role="button"`, inside the trigger button
+
+---
+
 ## Anatomy
 
 1. **Label** — visible text above the control. Required → UX Standards §7.1

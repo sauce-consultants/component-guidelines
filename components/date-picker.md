@@ -149,3 +149,34 @@ Calendar panel:
 - Today: `ring-1 ring-[var(--color-action-primary)]`
 - Disabled: `text-gray-300 cursor-not-allowed`
 - Range fill: `bg-[var(--color-action-primary)]/10` on days between start and end
+
+---
+
+## Header date variant
+
+> Added from the yard-demo bookings list (issue #82).
+
+- **Purpose:** the page's current day, shown as the subtitle under the page title, with previous and next day arrows either side of the title block. Used where the day is the main way of navigating a list (Bookings, Pending bookings)
+- **Trigger:** a button styled as header text, not a form field. Its accessible name is the date ("Thursday 23 October 2026"), and it has a calendar icon after the text. Use a button, not a text input, because there is nothing to type
+- **Panel:** `role="dialog"` named "Choose date" holding a `role="grid"` month. Choosing a day closes the panel and returns focus to the trigger. Escape closes without changing the date
+- **Arrows:** icon-only buttons named for what they move ("Previous day", "Next day"), never just "Previous"
+- **Do not** add the picker to lists that have no date (Completed, No show): show the title only
+
+---
+
+## Field variant
+
+> Added from the yard-demo Create booking flow (issue #99). `variant="field"` on the same DatePicker.
+
+- **Purpose:** a date inside a form (Create booking, Schedule: date of arrival). The calendar still helps because the day of the week matters, and the date can also be typed
+- **Trigger:** an Input-styled text field (same height, radius, ring and focus ring as Input) with a trailing calendar icon button. The text input is the field; the icon button opens the calendar. Placeholder `DD/MM/YYYY`
+- **Label:** a visible `<label htmlFor>` on the text input, with the hint under the field linked by `aria-describedby`. The calendar button is named "Choose date, currently" plus the full date, and has a 44px tap area
+- **Typing:** DD/MM/YYYY (D/M/YYYY, and `.` or `-` between the parts also read). Parsed on blur and on Enter. The date must be a real calendar day (31/02/2026 is rejected, not rolled over)
+- **Error:** an inline message under the field in orange (`aria-invalid` on the input, message first in `aria-describedby`, announced through a status region): "Enter a real date as DD/MM/YYYY, for example 29/10/2026", or "Enter a date as DD/MM/YYYY" when empty. The last good date stays selected and the typed text is left for the user to correct
+- **`onInvalid(message | null)`:** called when the typed text is checked (blur or Enter) and is empty, not a date or not a real day, with the same message as the inline error. Called with `null` once the text is valid or a day is chosen in the calendar. The `value` still holds the last good date, so a form must use this to block submit (Next stays unavailable with the reason on screen) and to list the message in its error summary, rather than silently continuing with the old date. An empty field counts as invalid because the date is required
+- **`maxDate` (field only):** the last day that can be chosen, compared by day. Days after it are disabled in the calendar: `aria-disabled="true"` (not `disabled`, so the arrow keys can still land and keep focus), struck through as well as muted (not colour alone), choosing one does nothing, the arrow keys stop at the last day, and "Next month" is `aria-disabled` once the next month starts after it. A typed date after it is invalid: inline error "Choose a date on or before DD/MM/YYYY" and `onInvalid` is called with the same message, like any other invalid text. Use it where a rule caps the date (Create booking, Schedule: the earliest purchase order due date); the form explains why in its own hint or note. Omit it for no limit. Added in issue #99 round 3
+- **`maxDateMessage` (field only):** the message for a date after `maxDate`, in place of the generic "Choose a date on or before DD/MM/YYYY". It belongs to `maxDate`: it is used only when `maxDate` is set (ignored without it), for every date after that day, and it is the inline error, the `onInvalid` message and so the text in the form's error summary. Build both from the same source (one helper, one due date) so the limit and its words cannot disagree, and have the form's own validation of the same rule say the same words. Say why the limit exists, e.g. "Choose a date on or before 02/11/2026, the purchase order due date". Omit it for the generic wording. Added in issue #99 round 4, tied to `maxDate` in round 6
+- **`minDate` (field only):** the first day that can be chosen, compared by day. The mirror of `maxDate`: days before it are disabled in the calendar (`aria-disabled="true"`, struck through as well as muted), choosing one does nothing, the arrow keys stop at the first day, and "Previous month" is `aria-disabled` once the previous month ends before it. A typed date before it is invalid: inline error "Choose a date on or after DD/MM/YYYY" and `onInvalid` is called with the same message. Use it where a rule sets an earliest date (Create booking, Schedule: the earliest day with a bookable slot, after the client's booking cutoff, a per-client setting of hours before arrival). Omit it for no limit. Added in issue #99 round 8
+- **`minDateMessage` (field only):** the message for a date before `minDate`, in place of the generic "Choose a date on or after DD/MM/YYYY". It belongs to `minDate`: used only when `minDate` is set, for every date before that day, and it is the inline error, the `onInvalid` message and the text in the form's error summary. Build both from the same source and have the form's own validation say the same words. Say why, e.g. "Bookings close 24 hours before arrival. Choose 03/11/2026 or later". Added in issue #99 round 8
+- **Panel and keyboard:** the same calendar panel and keys as the header variant. The panel anchors to the end of the field. Choosing a day closes it, replaces the typed text and clears any error
+- **Header variant:** unchanged
