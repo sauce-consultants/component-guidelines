@@ -909,16 +909,18 @@ Note: sidebar (256px) + aside (320px) = 576px consumed. On a 1024px viewport at 
 │         │   content     │           │
 │         │               │           │
 │         │   [Action]    │           │
+│         │  Secondary    │           │
+│         │  link         │           │
 │         └───────────────┘           │
 │                                     │
-│           Footer link               │
+│          Legal links (optional)     │
 └─────────────────────────────────────┘
 ```
 
 1. **Background** — fills the full viewport. May be a solid colour, gradient, or subtle pattern. Keeps focus on the card
 2. **Card** — centred both horizontally and vertically. Fixed max-width (typically 400–480px). Contains the form or action
 3. **Logo** — above or inside the card. The only branding element on the page
-4. **Footer link** — below the card. Secondary actions: "Back to login", "Don't have an account?", legal links
+4. **Secondary links** — inside the card, below the primary action, as simple, low-emphasis links (the ghost button variant, in the neutral text colour rather than the accent colour). Secondary actions: "Back to login", "Don't have an account?". Keeping them inside the card keeps the whole task in one place. Legal links, if any, may sit below the card
 
 ### Responsive behaviour
 
@@ -946,6 +948,15 @@ No scroll in most cases — the card should fit within the viewport. If the card
 └──────────────────┴──────────────────┘
 ```
 
+### Multi-app products
+
+When several apps share one design system and one set of users (for example a core app and an operations app), their standalone screens look the same. Users move between the apps, and a sign-in screen that looks different in each suggests a different product.
+
+- **Same layout, components and colours.** Use the same card, the same primary action colour and the same structure in every app. Do not theme standalone screens per app with an accent colour, a coloured border, or a custom card treatment.
+- **Identity comes from a label, not the styling.** Show the app name (or, where the app is scoped to a site, the site name) as a small label under the logo. Headings stay standard: use the card header title component with the plain screen title ("Sign in", "Reset your password").
+- **Logo:** use the full lockup (symbol and wordmark), in the variant that suits the background (see brand-guidelines-spec.md, 1.2). Never use the symbol alone on a standalone screen.
+- **Add nothing app-specific without a reason.** If an app needs a different treatment, the reason belongs in the design system, not in one screen.
+
 ### Common pitfalls
 
 1. **Card is not vertically centred.** Use `min-h-screen` with flexbox centering (`items-center justify-center`). Do not rely on margin hacks or fixed top positioning.
@@ -953,6 +964,7 @@ No scroll in most cases — the card should fit within the viewport. If the card
 3. **Form within the card does not handle errors well.** Space is tight — validation messages must be inline and concise. The card height will grow, which is fine, but it must not overflow the viewport without scrolling.
 4. **No way to navigate away.** Even isolated screens need an escape: "Back to login", a logo link to the marketing site, or at minimum a browser back action that works.
 5. **Background competes with the card.** The background must be subtle. High-contrast patterns, busy images, or strong gradients pull attention from the form.
+6. **Each app styles its own card.** A custom border, accent strip or colour on the card makes sibling apps look unrelated. Use the existing card component unchanged (see "Multi-app products").
 
 ### Tailwind notes
 
@@ -964,10 +976,10 @@ No scroll in most cases — the card should fit within the viewport. If the card
       <!-- Logo -->
     </div>
     <div class="bg-white rounded-lg shadow-md p-6 sm:p-8">
-      <!-- Card content -->
+      <!-- Card content, primary action, then secondary text links -->
     </div>
     <p class="mt-4 text-center text-sm text-gray-500">
-      <!-- Footer link -->
+      <!-- Optional legal links -->
     </p>
   </div>
 </div>

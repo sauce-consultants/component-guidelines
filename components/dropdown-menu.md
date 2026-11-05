@@ -38,6 +38,10 @@
 - **Purpose:** visual reinforcement of actions
 - **Visual distinction:** icon + label per item
 
+### Link items
+- **Purpose:** an item that goes somewhere (a page, a print sheet) rather than doing something
+- **Visual distinction:** the same as a standard item. It is a real link (`href`), so it can open in a new tab with `target="_blank"` and `rel="noopener"`. An item that opens a new tab must say so in its text (for example a visually hidden "(opens in a new tab)"). Do not use a script call to open a window when a link will do.
+
 ### With submenus
 - **Purpose:** nested action groups
 - **Visual distinction:** chevron on parent items, submenu appears on hover/focus
