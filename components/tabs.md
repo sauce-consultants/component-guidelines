@@ -135,3 +135,11 @@ Pill variant:
 Tab panel:
 - `pt-4` (or appropriate spacing below the tab list)
 - Use `hidden` on inactive panels (not `display:none` via JS after mount — render conditionally or use visibility)
+
+---
+
+## Filter tabs that collapse to a dropdown
+
+> Added from the yard-demo bookings list (issue #82).
+
+Single-select filter tabs that change a list in place (All / Inbound / Outbound) are toggle buttons, not ARIA tabs, because there is no tab panel. Wrap them in a `role="group"` with a name ("Direction") and expose the choice with `aria-pressed`. Below the `md` breakpoint collapse them into a Select whose accessible name contains the visible value ("Direction: All"). Keep both in the markup and switch with `hidden md:flex` / `md:hidden`, not with JavaScript. A Filter button that is not available yet is rendered disabled, never hidden. A Filter button with options toggles an Inline Panel (→ inline-panel.md), not a dropdown. Below `md` it is an icon-only Button (`size="icon"`) whose label stays as the accessible name. Its text is always "Filter" and it is always the secondary Button; do not put the chosen value in it or make it yellow. Show the active filter as a dismissible info Flag in the content card.

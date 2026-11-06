@@ -30,11 +30,17 @@
 
 ---
 
+## Dismiss button name
+
+A dismissible alert's close button is named "Dismiss" by default. When the alert's title does not make clear what the button removes, name it for the thing: `dismissLabel="Dismiss Site: Daventry filter"` (the yard-demo `Flag` prop). Do not leave several buttons on a page all named "Dismiss".
+
+---
+
 ## Variants
 
 ### Info
 - **Purpose:** neutral, informational
-- **Visual distinction:** blue accent
+- **Visual distinction:** grey accent (gray-400 icon, gray-500 strip). Not cyan or blue: in yard apps cyan means inbound, so info must not reuse it
 
 ### Warning
 - **Purpose:** non-critical issue requiring awareness → UX Standards §10.1

@@ -41,6 +41,8 @@ Every variant the product will need:
 
 For each variant, state which backgrounds it may and may not be placed on.
 
+Also state which contexts each variant is for. The icon-only / symbol variant is for compact contexts only (favicons, avatars, compact headers, mobile home screen icons). Standalone, full-page screens such as sign-in use the full lockup, never the symbol alone.
+
 ### 1.3 Clear space (must)
 
 Define the minimum clear space around the logo, expressed as a proportion of the logo itself (e.g. "the height of the letter 'S' on all sides"). Do not define clear space in fixed pixel values — the logo will render at different sizes.

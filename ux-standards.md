@@ -597,6 +597,18 @@ Toasts should appear in a consistent location across the application (typically 
 
 As covered in section 7.5: confirm before destructive actions, use specific button labels, do not default to the destructive option.
 
+### 19.5 Print sheets
+
+A page made to be printed (a booking sheet, an access code) is not the app page printed.
+
+**19.5.1** It must open in a new tab (a link with `target="_blank"` and `rel="noopener"`, saying so in its accessible name) on a route outside the app shell: no navigation, header or sidebar.
+
+**19.5.2** It must be black text on a white page whatever the app theme, including the page behind the sheet. It must not open the print dialog by itself; a visible Print button asks for it and is hidden when printing.
+
+**19.5.3** It should fit one A4 page for a normal record, including a long company name, set with a named `@page` rule so other screens keep their own page. A very long free-text value (such as a note) is not cut off: it flows onto a second page, with the code and the first rows staying on page 1. Check by printing to PDF and counting pages.
+
+**19.5.4** Codes (QR) must be drawn black on white, with print colour adjustment on so a browser's "background graphics" setting does not drop the tile.
+
 ---
 
 ## 20. Testing

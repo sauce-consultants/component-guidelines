@@ -49,6 +49,10 @@
 - **Purpose:** actions that look like inline links but behave as buttons (no navigation)
 - **Visual distinction:** underlined text, no container. Use sparingly to avoid confusion with actual links
 
+### Link rendered as a button
+- **Purpose:** a button-looking control that navigates (a link, or a link to a new tab)
+- **Visual distinction:** the same styles as a button, on the link element. Leading and trailing icons are drawn inside the link, the same as a normal button. A link that opens a new tab must say so in its text (for example a visually hidden "(opens in a new tab)").
+
 ---
 
 ## States
@@ -101,7 +105,8 @@ Action groups (e.g. "Save" + "Cancel") should stack vertically on `xs` with the 
 - **Accessible name:** derived from the visible label text. For icon-only buttons, use `aria-label`
 - **Keyboard nav:** focusable via Tab, activated via Enter or Space
 - **Screen reader:** label is announced. Loading state should be communicated via `aria-busy="true"` or a live region announcing "Loading" / "Please wait"
-- **Disabled state:** use the `disabled` attribute, not `aria-disabled`, unless the button needs to remain in tab order for discoverability
+- **Disabled state:** use the `disabled` attribute when there is nothing to explain
+- **Disabled with a reason (unavailable):** when the user could act if something changed (a permission, a locked record, an incomplete step) and needs to learn why, do not use native `disabled`. It removes the button from the tab order, so a keyboard or screen reader user never reaches the reason. Use `aria-disabled="true"` instead: the button looks disabled, stays focusable with a visible focus ring, and ignores click, Enter and Space (and navigation, for a link). Show the reason as **visible text** beside the button and point `aria-describedby` at it. A tooltip alone is not enough: it is hidden from touch users and many keyboard users. This is the "explain why" rule in UX Standards §8.3. In the yard-demo build, `<Button unavailable aria-describedby="reason-id">`. A loading button is natively disabled and ignores `unavailable`
 - **WCAG:** 2.1 — 4.1.2 (Name, Role, Value), 2.4.7 (Focus Visible), 1.4.3 (Contrast)
 
 ---
@@ -122,7 +127,7 @@ Action groups (e.g. "Save" + "Cancel") should stack vertically on `xs` with the 
 3. **Generic labels like "Submit" or "OK"** — labels must describe the action: "Save changes", "Delete record" → UX Standards §8.2
 4. **Button changes size when entering loading state** — set a minimum width or use fixed dimensions so the spinner doesn't collapse the button → UX Standards §3.4
 5. **No loading state on async actions** — clicking a button that calls an API must show loading and disable the button to prevent double submission
-6. **Disabled button with no explanation** — if a user can see a button but can't use it, tell them why via tooltip or hint text → UX Standards §8.3
+6. **Disabled button with no explanation** — if a user can see a button but can't use it, tell them why with visible hint text and `aria-disabled` (not native `disabled`, which hides the button from keyboard users), see "Disabled with a reason" above → UX Standards §8.3
 7. **Destructive buttons styled the same as primary** — delete/archive actions must be visually distinct (danger colour) and never the default/primary action in a confirmation dialog → UX Standards §7.5
 
 ---

@@ -86,10 +86,32 @@
 
 | Breakpoint | Behaviour |
 |---|---|
-| `xs`–`sm` | Full-width with margin (e.g. `mx-4`), or full-screen variant. Bottom-anchored action buttons for thumb reachability |
-| `md`+ | Centred dialog, max-width of `sm` (480px) to `lg` (640px) depending on content |
+| `xs`–`sm` | Full width minus a 16px margin. Footer buttons full width, stacked, main action on top (see below) |
+| `md` (768px) | Centred dialog, 480px |
+| `lg`+ (1024px) | Centred dialog, 640px |
 
 Long modal content should scroll within the body, not cause the entire modal to scroll. Header and footer remain fixed.
+
+### Width rule
+
+Applies to every modal and dialog, set once in the shared component, never per usage.
+
+- Small screens: the screen width minus a 16px margin each side
+- Tablets (`md`, 768px): 480px
+- Larger screens (`lg`, 1024px): 640px
+- Sizes larger than the rule (`lg`, `xl`, `half`, `full`) keep their wider width. No size is ever narrower than the rule, so a short confirmation is not left in a 384px box
+- Use `full` (896px) only for content such as a slot grid that needs the room
+
+### Footer buttons on small screens
+
+Applies to modal footers, dialog actions and the action row at the bottom of forms and wizards (Back/Next, Cancel/Save).
+
+- Below `sm` (640px): buttons full width, centred, stacked, main action on top, Cancel or secondary below
+- `sm` and up: side by side, right aligned (Back left, Next right in a wizard card), as before
+- Buttons keep the 44px minimum touch target and a 12px gap
+- Not for inline buttons in card headers, toolbars, table rows or pagination
+- Implement with `flex-col-reverse sm:flex-row` and keep the source order Cancel then main action. The stack looks reversed but the tab order and reading order stay the same as on wide screens, so one DOM serves every width. Do not reorder the source per breakpoint
+- Align header, body and footer on one left edge (24px) at every width
 
 ---
 
@@ -132,7 +154,7 @@ Backdrop:
 
 Dialog:
 - `fixed inset-0 z-50 flex items-center justify-center p-4`
-- Panel: `relative w-full max-w-md rounded-lg bg-white shadow-xl`
+- Panel: `relative w-full md:max-w-120 lg:max-w-160 rounded-lg bg-white shadow-xl` (480px from md, 640px from lg)
 
 Header:
 - `flex items-center justify-between px-6 pt-6 pb-2`
@@ -143,7 +165,7 @@ Body:
 - `px-6 py-4 overflow-y-auto max-h-[60vh]`
 
 Footer:
-- `flex items-center justify-end gap-3 px-6 pb-6 pt-2`
+- `flex flex-col-reverse gap-3 px-6 pb-6 pt-2 sm:flex-row sm:items-center sm:justify-end` (stacked, main action on top, below `sm`)
 
 Destructive confirmation:
 - Cancel: secondary button style

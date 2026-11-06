@@ -166,3 +166,16 @@ Bulk bar:
 
 Responsive card layout (mobile):
 - Replace `<table>` with a card list: `flex flex-col gap-3` with each row as a card showing key-value pairs
+
+---
+
+## Column heads: colour, sorting and cell content
+
+> Added from the yard-demo bookings list (issue #82).
+
+- **Grey heads must still pass AA.** Head text is gray-400 or lighter on a gray-900 card. gray-500 on gray-900 is about 3.8:1 and fails for small text
+- **Sortable heads** hold a button with the label and an up/down/neutral arrow. The `th` carries `aria-sort="ascending"` or `"descending"` on the sorted column only. Plain lists have no buttons and no `aria-sort`
+- **Times** are a `<time datetime>` element showing HH:MM, with the UTC offset as visually hidden text ("14:00 UTC+1"). Do not use a tooltip for the zone, and do not repeat the time in another zone on a second line
+- **Secondary context** (such as the site) goes beneath the primary value in the same cell rather than in an extra column
+
+- **Row dot = direction, deliberately.** On the bookings lists (Core and Ops) the dot beside the slot shows direction: cyan inbound, purple outbound. It no longer shows booking status (expected, on site, departed). This is intended, confirmed by the product lead. The direction is also in words, as visually hidden text next to the dot, so the colour is not the only signal. Cyan is reserved for inbound, which is why the info Flag is grey
